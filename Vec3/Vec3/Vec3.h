@@ -10,7 +10,7 @@ public:
 
 	void zero();
 	bool is_zero();
-	void normalize();
+	void normalise();
 
 	Vec3 operator + (const Vec3 arg);
 	Vec3 operator - (const Vec3 arg);
@@ -127,7 +127,7 @@ bool Vec3<T>::is_zero()
 }
 
 template<class T>
-void normalise()
+void Vec3<T>::normalise()
 {
 	T module = sqrt((x * x) + (y * y) + (z * z));
 
