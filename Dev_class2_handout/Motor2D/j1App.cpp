@@ -71,7 +71,7 @@ bool j1App::Awake()
 		LOG("Fuck yeah document loaded");
 	}
 	else {
-		LOG("Fuck yeah document was not loaded");
+		LOG("Fuck yeah document not loaded");
 		return false;
 	}
 	

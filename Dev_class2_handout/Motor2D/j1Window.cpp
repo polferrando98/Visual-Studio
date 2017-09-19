@@ -73,7 +73,12 @@ bool j1Window::Awake()
 			// TODO 4: Read the title of the app from the XML
 			// and set directly the window title using SetTitle()
 
-			LOG(title.GetString());
+			LOG("PENE");
+			pugi::xml_node tool = App->config_node;
+			tool = App->config.child("Tool");
+			LOG( tool.attribute("Filename").value());
+
+			
 
 		}
 	}
