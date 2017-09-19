@@ -11,6 +11,7 @@ public:
 	void zero();
 	bool is_zero();
 	void normalise();
+	T distance_to(const Vec3 arg);
 
 	Vec3 operator + (const Vec3 arg);
 	Vec3 operator - (const Vec3 arg);
@@ -137,4 +138,14 @@ void Vec3<T>::normalise()
 		y /= magnitude;
 		z /= magnitude;
 	}
+}
+
+template<class T>
+T Vec3<T>::distance_to(const Vec3 arg)
+{
+	T dx = arg.x - x;
+	T dy = arg.y - y;
+	T dz = arg.z - z;
+
+	return sqrt(dx * dx + dy * dy + dz * dz);
 }
