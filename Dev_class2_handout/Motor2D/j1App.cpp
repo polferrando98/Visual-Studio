@@ -63,9 +63,9 @@ bool j1App::Awake()
 	// TODO 3: Load config.xml file using load_file() method from the xml_document class.
 	// If everything goes well, load the top tag inside the xml_node property
 	// created in the last TODO
+
 	
-	
-	pugi::xml_parse_result result = config.load_file("config.xml");
+	pugi::xml_parse_result result = config_doc.load_file("config.xml");
 	if (result)
 	{
 		LOG("Fuck yeah document loaded");
@@ -75,7 +75,7 @@ bool j1App::Awake()
 		return false;
 	}
 	
-	
+	config_node = config_doc.child("config");
 
 
 	bool ret = true;
@@ -88,8 +88,9 @@ bool j1App::Awake()
 		// TODO 7: Add a new argument to the Awake method to receive a pointer to a xml node.
 		// If the section with the module name exist in config.xml, fill the pointer with the address of a valid xml_node
 		// that can be used to read all variables from that section. Send nullptr if the section does not exist in config.xml
+		
 
-		ret = item->data->Awake();
+		ret = item->data->Awake(&config_node.child(item->data->name.GetString()));
 		item = item->next;
 	}
 

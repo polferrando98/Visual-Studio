@@ -1,5 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- configuration file for the game-->
 
-
-  <title>Origins of the red mug reloaded v2</title>
+<config>
+  <window>
+    <fullscreen value="false"/>
+    <borderless value="false"/>
+    <resizable value="true"/>
+    <fullscreen_window value="false"/>
+    <title value="Origins of the red mug reloaded v2"/>
+    <width value="1024"/>
+    <height value="768"/>
+    <scale value="1"/>
+  </window>
+  <audio>
+    <volume value="1"/>
+  </audio>
+</config>

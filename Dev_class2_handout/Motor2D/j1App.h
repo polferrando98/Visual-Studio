@@ -69,8 +69,7 @@ public:
 	j1Audio*			audio;
 	j1Scene*			scene;
 
-	pugi::xml_document config;
-	pugi::xml_node config_node;
+
 
 
 
@@ -84,7 +83,11 @@ private:
 	// a xml_document to store the while config file and
 	// a xml_node to read specific branches of the xml
 	
+public:
 
+	pugi::xml_document config_doc;
+	pugi::xml_node config_node;
+	pugi::xml_node temp_node;
 	
 
 	

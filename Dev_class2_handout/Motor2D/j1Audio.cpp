@@ -19,7 +19,7 @@ j1Audio::~j1Audio()
 {}
 
 // Called before render is available
-bool j1Audio::Awake()
+bool j1Audio::Awake(pugi::xml_node* config_node)
 {
 	LOG("Loading Audio Mixer");
 	bool ret = true;
@@ -50,7 +50,7 @@ bool j1Audio::Awake()
 		active = false;
 		ret = true;
 	}
-
+	Mix_VolumeMusic(config_node->child("volume").attribute("value").as_int());
 	return ret;
 }
 
