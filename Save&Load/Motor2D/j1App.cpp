@@ -34,6 +34,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	// render last to swap buffer
 	AddModule(render);
+
+	save_requested = false;
+	load_requested = false;
 }
 
 // Destructor
@@ -152,7 +155,13 @@ void j1App::PrepareUpdate()
 void j1App::FinishUpdate()
 {
 	// TODO 1: This is a good place to call load / Save functions
+	if (save_requested) {
+		real_save(save_node);
+	}
 
+	if (load_requested) {
+		real_load(save_node);
+	}
 }
 
 // Call modules before each loop iteration
@@ -262,6 +271,43 @@ const char* j1App::GetOrganization() const
 {
 	return organization.GetString();
 }
+
+void j1App::save()
+{
+	save_requested = true;
+}
+
+void j1App::load()
+{
+	load_requested = true;
+}
+
+bool j1App::real_save(pugi::xml_node state_node) const
+{
+	p2List_item<j1Module*>* item;
+	item = modules.start;
+
+	while (item != NULL)
+	{
+		item->data->save(config.child(item->data->name.GetString()));
+		item = item->next;
+	}
+	return false;
+}
+
+bool j1App::real_load(pugi::xml_node state_node)
+{
+	p2List_item<j1Module*>* item;
+	item = modules.start;
+
+	while (item != NULL)
+	{
+		item->data->load(save_node.child(item->data->name.GetString()));
+		item = item->next;
+	}
+	return false;
+}
+
 
 
 // TODO 3: Create a simulation of the xml file to read 

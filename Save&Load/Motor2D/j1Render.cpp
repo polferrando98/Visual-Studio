@@ -98,6 +98,11 @@ void j1Render::SetBackgroundColor(SDL_Color color)
 	background = color;
 }
 
+bool j1Render::load(pugi::xml_node &) const
+{
+	return false;
+}
+
 void j1Render::SetViewPort(const SDL_Rect& rect)
 {
 	SDL_RenderSetViewport(renderer, &rect);
@@ -231,3 +236,9 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 
 	return ret;
 }
+
+//bool j1Render::load(pugi::xml_node  save) const
+//{
+//	//camera.x = save.child("fullscreen").attribute("value").as_bool(false);
+//	return false;
+//}

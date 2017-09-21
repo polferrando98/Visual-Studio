@@ -1,0 +1,15 @@
+<!-- Config file for the game -->
+
+<state>
+  <app>
+  </app>
+	
+  <renderer>
+    <camera_x value="10"/>
+  </renderer>
+
+  <window>
+
+  </window>
+
+</state>

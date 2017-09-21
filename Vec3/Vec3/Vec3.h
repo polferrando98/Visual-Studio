@@ -22,7 +22,6 @@ public:
 
 private:
 	T x, y, z;
-
 };
 
 template<class T>
@@ -32,7 +31,7 @@ inline Vec3<T>::Vec3()
 }
 
 template<class T>
-inline Vec3<T>::Vec3(T x, T y, T z)
+Vec3<T>::Vec3(T x, T y, T z)
 {
 	this->x = x;
 	this->y = y;

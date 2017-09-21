@@ -49,6 +49,11 @@ public:
 	// will one execute by the very end of the frame
 	// Load / Save
 
+	void save();
+	void load();
+
+
+
 private:
 
 	// Load config file
@@ -69,6 +74,9 @@ private:
 	// Call modules after each loop iteration
 	bool PostUpdate();
 
+	bool real_save(pugi::xml_node state_node) const;
+	bool real_load(pugi::xml_node state_node);
+
 public:
 
 	// Modules
@@ -87,8 +95,12 @@ private:
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
 	pugi::xml_node		app_config;
+	pugi::xml_node		save_node;
 	int					argc;
 	char**				args;
+
+	bool save_requested;
+	bool load_requested;
 
 	p2SString			title;
 	p2SString			organization;
