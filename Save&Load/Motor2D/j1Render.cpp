@@ -100,7 +100,8 @@ bool j1Render::load(pugi::xml_node &save)
 
 bool j1Render::save(pugi::xml_node &save) const
 {
-
+	save.child("camera").attribute("x").set_value(camera.x);
+	save.child("camera").attribute("y").set_value(camera.y);
 	return true;
 };
 
