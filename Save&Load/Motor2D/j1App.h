@@ -74,8 +74,11 @@ private:
 	// Call modules after each loop iteration
 	bool PostUpdate();
 
-	bool real_save(pugi::xml_node state_node) const;
-	bool real_load(pugi::xml_node state_node);
+	// Load save file
+	bool LoadSaveFile();
+
+	bool real_save() const;
+	bool real_load();
 
 public:
 
@@ -93,6 +96,7 @@ private:
 	uint				frames;
 	float				dt;
 	pugi::xml_document	config_file;
+	pugi::xml_document	save_file;
 	pugi::xml_node		config;
 	pugi::xml_node		app_config;
 	pugi::xml_node		save_node;

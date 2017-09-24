@@ -66,6 +66,13 @@ void j1App::AddModule(j1Module* module)
 bool j1App::Awake()
 {
 	bool ret = LoadConfig();
+	if (ret)
+	{
+		ret = LoadSaveFile();
+	}
+	else {
+		return ret;
+	}
 
 	// self-config
 	title.create(app_config.child("title").child_value());
@@ -146,6 +153,25 @@ bool j1App::LoadConfig()
 	return ret;
 }
 
+bool j1App::LoadSaveFile()
+{
+	bool ret = true;
+
+	pugi::xml_parse_result result = save_file.load_file("save_file.xml");
+
+	if (result == NULL)
+	{
+		LOG("Could not load map xml file save_file.xml pugi error: %s", result.description());
+		ret = false;
+	}
+	else
+	{
+		save_node = save_file.child("save");
+	}
+
+	return ret;
+}
+
 // ---------------------------------------------
 void j1App::PrepareUpdate()
 {
@@ -156,12 +182,15 @@ void j1App::FinishUpdate()
 {
 	// TODO 1: This is a good place to call load / Save functions
 	if (save_requested) {
-		real_save(save_node);
+		real_save();
 	}
 
 	if (load_requested) {
-		real_load(save_node);
+		real_load();
 	}
+
+	load_requested = false;
+	save_requested = false;
 }
 
 // Call modules before each loop iteration
@@ -282,20 +311,22 @@ void j1App::load()
 	load_requested = true;
 }
 
-bool j1App::real_save(pugi::xml_node state_node) const
+bool j1App::real_save() const
 {
 	p2List_item<j1Module*>* item;
 	item = modules.start;
 
+	pugi::xml_document save;
+
 	while (item != NULL)
 	{
-		item->data->save(config.child(item->data->name.GetString()));
+		item->data->save(save_node.child(item->data->name.GetString()));
 		item = item->next;
 	}
 	return false;
 }
 
-bool j1App::real_load(pugi::xml_node state_node)
+bool j1App::real_load()
 {
 	p2List_item<j1Module*>* item;
 	item = modules.start;

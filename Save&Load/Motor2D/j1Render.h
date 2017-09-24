@@ -39,7 +39,8 @@ public:
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
 
-	bool load(pugi::xml_node&) const;
+	bool load(pugi::xml_node &save);
+	bool save(pugi::xml_node &save) const;
 
 public:
 

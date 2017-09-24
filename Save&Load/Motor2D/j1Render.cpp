@@ -90,6 +90,20 @@ bool j1Render::CleanUp()
 // TODO 6: Create a method to load the state
 // for now it will be camera's x and y
 
+bool j1Render::load(pugi::xml_node &save)
+{
+	camera.x = save.child("camera").attribute("x").as_int();
+	camera.y = save.child("camera").attribute("y").as_int();
+		
+	return true;
+}
+
+bool j1Render::save(pugi::xml_node &save) const
+{
+
+	return true;
+};
+
 // TODO 8: Create a method to save the state
 // using append_child and append_attribute
 
@@ -98,10 +112,6 @@ void j1Render::SetBackgroundColor(SDL_Color color)
 	background = color;
 }
 
-bool j1Render::load(pugi::xml_node &) const
-{
-	return false;
-}
 
 void j1Render::SetViewPort(const SDL_Rect& rect)
 {
@@ -237,8 +247,3 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 	return ret;
 }
 
-//bool j1Render::load(pugi::xml_node  save) const
-//{
-//	//camera.x = save.child("fullscreen").attribute("value").as_bool(false);
-//	return false;
-//}
