@@ -77,7 +77,7 @@ private:
 	// Load save file
 	bool LoadSaveFile();
 
-	bool real_save() const;
+	bool real_save();
 	bool real_load();
 
 public:
@@ -96,7 +96,7 @@ private:
 	uint				frames;
 	float				dt;
 	pugi::xml_document	config_file;
-	pugi::xml_document	save_file;
+	pugi::xml_document	save_game_file;
 	pugi::xml_node		config;
 	pugi::xml_node		app_config;
 	pugi::xml_node		save_node;

@@ -90,6 +90,7 @@ bool j1App::Awake()
 		}
 	}
 
+
 	return ret;
 }
 
@@ -157,17 +158,15 @@ bool j1App::LoadSaveFile()
 {
 	bool ret = true;
 
-	pugi::xml_parse_result result = save_file.load_file("save_file.xml");
+	pugi::xml_parse_result result = save_game_file.load_file("save_file.xml");
 
-	if (result == NULL)
+	if (result == NULL)  //if there is no file let's create it
 	{
-		LOG("Could not load map xml file save_file.xml pugi error: %s", result.description());
-		ret = false;
+		pugi::xml_node save_node = save_game_file.append_child("save");
+		save_node.append_child("app");
+
 	}
-	else
-	{
-		save_node = save_file.child("save");
-	}
+	save_node = save_game_file.child("save");
 
 	return ret;
 }
@@ -311,18 +310,25 @@ void j1App::load()
 	load_requested = true;
 }
 
-bool j1App::real_save() const
+bool j1App::real_save() 
 {
 	p2List_item<j1Module*>* item;
 	item = modules.start;
-
-	pugi::xml_document save;
-
+	
 	while (item != NULL)
-	{
-		item->data->save(save_node.child(item->data->name.GetString()));
+	{	
+		if (save_node.child(item->data->name.GetString())) {
+			item->data->save(save_node.child(item->data->name.GetString()));
+		}
+		else {
+			save_node.append_child(item->data->name.GetString());
+			item->data->save(save_node.child(item->data->name.GetString()));
+		}
 		item = item->next;
 	}
+
+
+	save_game_file.save_file("save_file.xml");
 	return false;
 }
 

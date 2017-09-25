@@ -13,6 +13,6 @@
     <scale value="1"/>
   </window>
   <audio>
-    <volume value="1"/>
+    <volume value="64"/>
   </audio>
 </config>
