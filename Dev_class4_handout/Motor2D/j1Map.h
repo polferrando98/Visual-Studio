@@ -9,9 +9,29 @@
 // TODO 2: Create a struct to hold information for a TileSet
 // Ignore Terrain Types and Tile Types for now, but we want the image!
 // ----------------------------------------------------
-
+struct tileset {
+	uint firstgid;
+	char* name = NULL;
+	uint tilewidth;
+	uint tileheight;
+	uint spacing;
+	uint margin;
+};
 
 // TODO 1: Create a struct needed to hold the information to Map node
+struct map {
+	float version;
+	orientation orientation;
+	renderOrder renderorder;
+	uint width;
+	uint height;
+	uint tilewidth;
+	uint tileheight;
+	uint nextobjectid;
+};
+
+enum orientation {orthogonal, isometric};
+enum renderOrder {rightDown};
 
 
 // ----------------------------------------------------
@@ -37,11 +57,12 @@ public:
 	bool Load(const char* path);
 
 private:
-
+	bool loadAndFillMap(pugi::xml_document	map_file);
 
 public:
 
 	// TODO 1: Add your struct for map info as public for now
+	map map1;
 
 private:
 
