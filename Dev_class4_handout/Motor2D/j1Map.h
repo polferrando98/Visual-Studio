@@ -8,9 +8,11 @@
 
 // TODO 2: Create a struct to hold information for a TileSet
 // Ignore Terrain Types and Tile Types for now, but we want the image!
+// ----------------------------------------------------
 
 
 // TODO 1: Create a struct needed to hold the information to Map node
+
 
 // ----------------------------------------------------
 class j1Map : public j1Module
@@ -35,6 +37,7 @@ public:
 	bool Load(const char* path);
 
 private:
+
 
 public:
 
