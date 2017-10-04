@@ -76,6 +76,7 @@ bool j1Map::Load(const char* file_name)
 		// all your map data
 		loadAndFillMap();
 		loadAndFillTilesets();
+		loadAndFillLayers();
 	}
 
 	// TODO 4: Create and call a private function to load a tileset
@@ -136,6 +137,20 @@ bool j1Map::loadAndFillTilesets()
 	return false;
 }
 
+bool j1Map::loadAndFillLayers()
+{
+	layer layer_temp;
+
+	for (pugi::xml_node layer_node = map_file.child("map").child("layer"); layer_node; layer_node = layer_node.next_sibling("tileset")) {
+		layer_temp.name = (char*)(layer_node.attribute("name").as_string());
+		layer_temp.width = layer_node.attribute("width").as_int();
+		layer_temp.height = layer_node.attribute("height").as_int();
+		tilesets_count++;
+	}
+	layers.add(layer_temp);
+	return false;
+}
+
 void j1Map::LogEverything()
 {
 	LOG("Map version: %f", map1.version);
@@ -155,6 +170,13 @@ void j1Map::LogEverything()
 		LOG("Tileset #%d tileheight: %d", i + 1, tileset_iterator.tileheight);
 		LOG("Tileset #%d spacing: %d", i + 1, tileset_iterator.spacing);
 		LOG("Tileset #%d margin: %d", i + 1, tileset_iterator.margin);
+	}
+
+	for (int i = 0; layers.At(i); i++) {
+		layer layer_iterator = layers.At(i)->data;
+		LOG("Layer #%d name: %s", i + 1, layer_iterator.name);
+		LOG("Layer #%d width: %d", i + 1, layer_iterator.width);
+		LOG("Layer #%d height: %d", i + 1, layer_iterator.height);
 	}
 }
 

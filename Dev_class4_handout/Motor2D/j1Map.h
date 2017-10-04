@@ -11,6 +11,11 @@
 // ----------------------------------------------------
 enum orientation {empty_orientation, orthogonal, isometric };
 enum renderOrder {empty_rOrder, rightDown };
+struct layer {
+	char* name;
+	uint width;
+	uint height;
+};
 
 struct tileset {
 	uint firstgid;
@@ -63,6 +68,7 @@ public:
 private:
 	bool loadAndFillMap();
 	bool loadAndFillTilesets();
+	bool loadAndFillLayers();
 	void LogEverything();
 
 public:
@@ -70,6 +76,8 @@ public:
 	// TODO 1: Add your struct for map info as public for now
 	map map1;
 	p2List<tileset>	tilesets;
+	p2List<layer> layers;
+
 	uint tilesets_count = 0;
 	pugi::xml_document	map_file;
 
