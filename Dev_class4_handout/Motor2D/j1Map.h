@@ -12,14 +12,14 @@
 enum orientation {empty_orientation, orthogonal, isometric };
 enum renderOrder {empty_rOrder, rightDown };
 struct layer {
-	char* name;
+	p2SString name;
 	uint width;
 	uint height;
 };
 
 struct tileset {
 	uint firstgid;
-	char* name = NULL;
+	p2SString name;
 	uint tilewidth;
 	uint tileheight;
 	uint spacing;

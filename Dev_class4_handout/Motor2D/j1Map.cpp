@@ -101,11 +101,15 @@ bool j1Map::loadAndFillMap()
 
 	map1.version = (map_node.attribute("version").as_float());
 
-	if (strlen(map_node.attribute("orientation").as_string()) == strlen("orthogonal")) { //faltan casos
+	//if (strlen(map_node.attribute("orientation").as_string()) == strlen("orthogonal")) { //WTF no va
+	//	map1.orientation = orthogonal;
+	//}
+
+	if (map_node.attribute("orientation").as_string() == "orthogonal") { //faltan casos
 		map1.orientation = orthogonal;
 	}
 
-	if (strlen(map_node.attribute("renderorder").as_string()) == strlen("right-down")) { //WTF no va
+	if (strlen(map_node.attribute("renderorder").as_string()) == strlen("right-down")) { 
 		map1.renderorder = rightDown;
 	}
 	map1.width = map_node.attribute("width").as_int();
