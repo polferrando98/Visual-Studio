@@ -18,7 +18,9 @@ struct Layer {
 // ----------------------------------------------------
 
 	// TODO 6: Short function to get the value of x,y
-
+inline uint GetId(int x, int y, int width)  {
+	return ((y*width) + x);
+}
 
 
 // ----------------------------------------------------

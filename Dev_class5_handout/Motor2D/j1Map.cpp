@@ -31,14 +31,24 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 
+	SDL_Rect rekt;
+
+	int width = data.tile_width + data.tilesets.At(0)->data->margin;
+	int height = data.tile_height + data.tilesets.At(0)->data->margin;
+
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
 	for (int i = 0; i < data.layers.At(0)->data->width; i++) {
 		for (int j = 0; j < data.layers.At(0)->data->height; j++) {
-			//App->render->Blit(data.tilesets.At(0)->data->texture,)
+			
+
+			rekt = data.tilesets.At(0)->data->GetTileRect(data.layers.At(0)->data->data[GetId(i,j,data.tilesets.At(0)->data->num_tiles_width)]);  //GetTileRect()
+			App->render->Blit(data.tilesets.At(0)->data->texture, i * width, j * height, &rekt);
 		}
 	}
-		// TODO 9: Complete the draw function
 
+
+
+	// TODO 9: Complete the draw function
 }
 
 
@@ -334,3 +344,4 @@ bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer)
 	}
 	return true;
 }
+
