@@ -18,9 +18,16 @@ struct Layer {
 // ----------------------------------------------------
 
 	// TODO 6: Short function to get the value of x,y
-inline uint GetId(int x, int y, int width)  {
-	return ((y*width) + x);
+inline void ToRowsAndCols(int *x, int *y)  {
+	int row = *x / *y;
+	int column = *x - row*(*y);
+
+	*x = column;
+	*y = row;
 }
+
+
+
 
 
 // ----------------------------------------------------
@@ -97,6 +104,16 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, Layer* layer);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
+
+	SDL_Rect Tile_Rect(int tileid);
+
+	void convert_to_real_world(int x, int y, int* dest_x, int* dest_y)
+	{
+		*dest_x = x * data.tilesets.At(0)->data->tile_height;
+
+		*dest_y = y * data.tilesets.At(0)->data->tile_width;
+	}
+
 	// TODO 3: Create a method that loads a single laye
 	// bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 
