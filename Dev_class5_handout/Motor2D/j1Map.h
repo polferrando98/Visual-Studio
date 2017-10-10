@@ -89,6 +89,8 @@ public:
 	// Called each loop iteration
 	void Draw();
 
+	bool Update();
+
 	// Called before quitting
 	bool CleanUp();
 

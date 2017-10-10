@@ -60,7 +60,6 @@ void j1Map::Draw()
 }
 
 
-
 	// TODO 9: Complete the draw function
 
 
@@ -357,4 +356,5 @@ bool j1Map::LoadLayer(pugi::xml_node& node, Layer* layer)
 	}
 	return true;
 }
+
 
