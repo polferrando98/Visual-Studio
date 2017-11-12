@@ -132,10 +132,15 @@ public:
 	void ResetPath();
 	void DrawPath();
 	void Path(int x, int y);
+	void CreateGoal(int x, int y);
 
 	// Propagation style
 	void PropagateBFS();
 	void PropagateDijkstra();
+	void PropagateAStar();
+
+	//Math 
+	int ManhattanDistance(iPoint origin, iPoint destination);
 
 private:
 
@@ -150,6 +155,8 @@ private:
 public:
 
 	MapData data;
+	iPoint null_ipoint = { -1,-1 };
+	iPoint a_goal = null_ipoint;
 
 private:
 
