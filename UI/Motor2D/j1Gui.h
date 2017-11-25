@@ -38,6 +38,10 @@ public:
 	// Gui creation functions
 	UIElement* AddUIElement(iPoint position, UIType type);
 
+	UIElement* AddUIText(iPoint position, p2SString text, SDL_Color color = { 255,255,255,255 });
+
+	UIElement* AddUIPicture(iPoint position, p2SString name = "", SDL_Rect section = { 0,0,0,0 });
+
 	SDL_Texture* GetAtlas() const;
 
 private:

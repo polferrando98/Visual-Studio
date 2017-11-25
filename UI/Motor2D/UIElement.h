@@ -10,7 +10,7 @@ enum UIType { LABEL, PICTURE };
 class UIElement
 {
 public:
-	UIElement(iPoint position, SDL_Texture* texture, UIType type) {
+	UIElement(iPoint position, UIType type) {
 		this->position = position;
 		this->texture = texture;
 		this->type = type;
@@ -48,11 +48,14 @@ public:
 		return true;
 	}
 
+	void Draw();
+
 
 public:
 	iPoint position = { 0, 0 };
 	SDL_Texture* texture = nullptr;
 	UIType type;
 	SDL_Rect section = { 0,0,0,0 };
+	bool move_with_camera = true; //INOI
 };
 

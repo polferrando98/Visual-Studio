@@ -4,7 +4,7 @@ class Picture :
 	public UIElement
 {
 public:
-	Picture(iPoint position, SDL_Texture* texture);
+	Picture(iPoint position);
 	~Picture();
 	bool Update(float dt);
 
