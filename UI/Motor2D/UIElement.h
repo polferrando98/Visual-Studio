@@ -56,6 +56,6 @@ public:
 	SDL_Texture* texture = nullptr;
 	UIType type;
 	SDL_Rect section = { 0,0,0,0 };
-	bool move_with_camera = true; //INOI
+	bool move_with_camera = true; 
 };
 

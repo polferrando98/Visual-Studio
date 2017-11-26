@@ -10,6 +10,7 @@
 #include "j1PathFinding.h"
 #include "j1Gui.h"
 #include "j1Scene.h"
+#include "j1Fonts.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -50,11 +51,15 @@ bool j1Scene::Start()
 
 	// TODO 3: Create the banner (rect {485, 829, 328, 103}) and the text "Hello World"
 
-	App->gui->AddUIPicture({ 0,0 }, "gui/logonscreen.png");
+	_TTF_Font* morfeus = App->font->Load("fonts/open_sans/OpenSans-ExtraBoldItalic.ttf", 18);
 
-	App->gui->AddUIPicture({ 100,100 }, "", { 485,829,328,103 });
+	App->gui->AddUIPicture({ 0,0 }, "gui/login_background.png"); //Background
 
-	App->gui->AddUIText({ 100,500 }, "Hey yo");
+	App->gui->AddUIPicture({ 0,0 }, "gui/Glues-Logo.png"); //Logo
+
+	App->gui->AddUIText({ 500,100 }, "Account name:",morfeus);
+
+	
 
 	return true;
 }

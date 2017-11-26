@@ -19,7 +19,13 @@ bool Label::Update(float dt)
 void Label::SetText(p2SString text)
 {
 	this->text = text;
-	texture = App->font->Print(text.GetString(), color);
+	texture = App->font->Print(text.GetString(), color, font);
+}
+
+void Label::SetFont(_TTF_Font* font)
+{
+	this->font = font;
+	texture = App->font->Print(text.GetString(), color, font);
 }
 
 Label::~Label()

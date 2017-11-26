@@ -8,6 +8,7 @@
 
 // TODO 1: Create your structure of classes
 
+struct _TTF_Font;
 
 // ---------------------------------------------------
 class j1Gui : public j1Module
@@ -38,9 +39,9 @@ public:
 	// Gui creation functions
 	UIElement* AddUIElement(iPoint position, UIType type);
 
-	UIElement* AddUIText(iPoint position, p2SString text, SDL_Color color = { 255,255,255,255 });
+	UIElement* AddUIText(iPoint position, p2SString text, _TTF_Font* font = NULL);
 
-	UIElement* AddUIPicture(iPoint position, p2SString name = "", SDL_Rect section = { 0,0,0,0 });
+	UIElement* AddUIPicture(iPoint position, p2SString texture_name = "", SDL_Rect section = { 0,0,0,0 });
 
 	SDL_Texture* GetAtlas() const;
 

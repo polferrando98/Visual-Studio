@@ -81,32 +81,38 @@ UIElement* j1Gui::AddUIElement(iPoint position, UIType type)
 	return elem;
 }
 
-UIElement * j1Gui::AddUIText(iPoint position, p2SString text, SDL_Color color)
+UIElement * j1Gui::AddUIText(iPoint position, p2SString text, _TTF_Font* font)
 {
 	UIElement* elem;
 
-	elem = new Label(position, text, color);
+	elem = new Label(position, text);
+
+	if (font != NULL) {
+		Label* new_label = (Label*)elem;
+		new_label->SetFont(font);
+	}
+
 	elements.add(elem);
 
 	return elem;
 }
 
-UIElement * j1Gui::AddUIPicture(iPoint position, p2SString name, SDL_Rect section)
+UIElement * j1Gui::AddUIPicture(iPoint position, p2SString texture_name, SDL_Rect section)
 {
 	UIElement* elem;
 
 	elem = new Picture(position);
 
-	if (name != "") {
+	if (texture_name != "") {
 		SDL_Texture* newTexture = nullptr;
-		newTexture = App->tex->Load(name.GetString());
+		newTexture = App->tex->Load(texture_name.GetString());
 		elem->texture = newTexture;
 	}
-	else {
+	else 
 		elem->texture = atlas;
-		if (!SDL_RectEmpty(&section))
-			elem->section = section;
-	}
+
+	if (!SDL_RectEmpty(&section))
+		elem->section = section;
 
 	elements.add(elem);
 

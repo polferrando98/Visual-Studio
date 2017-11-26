@@ -12,5 +12,8 @@ void UIElement::Draw()
 	}
 
 	else
-		App->render->Blit(texture, position.x, position.y);
+		if (SDL_RectEmpty(&section))
+			App->render->Blit(texture, position.x, position.y);
+		else
+			App->render->Blit(texture, position.x, position.y, &section);
 }
