@@ -5,7 +5,7 @@
 #include "SDL\include\SDL_rect.h"
 
 struct SDL_Texture;
-enum UIType { LABEL, PICTURE };
+enum UIType { LABEL, PICTURE, BUTTON };
 
 class UIElement
 {

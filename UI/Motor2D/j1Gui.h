@@ -10,6 +10,10 @@
 
 struct _TTF_Font;
 
+class Label;
+class Picture;
+class Button;
+
 // ---------------------------------------------------
 class j1Gui : public j1Module
 {
@@ -39,9 +43,11 @@ public:
 	// Gui creation functions
 	UIElement* AddUIElement(iPoint position, UIType type);
 
-	UIElement* AddUIText(iPoint position, p2SString text, _TTF_Font* font = NULL);
+	Label* AddUIText(iPoint position, p2SString text, _TTF_Font* font = NULL);
 
-	UIElement* AddUIPicture(iPoint position, p2SString texture_name = "", SDL_Rect section = { 0,0,0,0 });
+	Picture* AddUIPicture(iPoint position, p2SString texture_name = "", SDL_Rect section = { 0,0,0,0 });
+
+	Button* AddUIButton(iPoint position, p2SString texture_name = "", SDL_Rect up = { 0,0,0,0 }, SDL_Rect hover = { 0,0,0,0 });
 
 	SDL_Texture* GetAtlas() const;
 

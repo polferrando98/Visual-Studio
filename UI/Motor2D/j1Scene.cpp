@@ -11,6 +11,8 @@
 #include "j1Gui.h"
 #include "j1Scene.h"
 #include "j1Fonts.h"
+#include "Button.h"
+#include "Label.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -57,8 +59,11 @@ bool j1Scene::Start()
 
 	App->gui->AddUIPicture({ 0,0 }, "gui/Glues-Logo.png"); //Logo
 
-	App->gui->AddUIText({ 500,100 }, "Account name:",morfeus);
+	App->gui->AddUIText({ 500,100 }, "Account name:",morfeus); //Button
 
+
+	Button* button = App->gui->AddUIButton({ 200,200 }, "gui/button-atlas.png", { 0,0,146,30 }, { 0,50,146,30 });
+	button->label->SetText("PENE");
 	
 
 	return true;

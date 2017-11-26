@@ -8,6 +8,7 @@
 #include "j1Gui.h"
 #include "Picture.h"
 #include "Label.h"
+#include "Button.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -47,10 +48,11 @@ bool j1Gui::PreUpdate()
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
+	bool ret = true;
 	for (p2List_item<UIElement*>* element_iterator = elements.start; element_iterator != nullptr; element_iterator = element_iterator->next) {
-		element_iterator->data->Update(App->dt);
+		ret = element_iterator->data->Update(App->dt);
 	}
-	return true;
+	return ret;
 }
 
 // Called before quitting
@@ -73,6 +75,10 @@ UIElement* j1Gui::AddUIElement(iPoint position, UIType type)
 		elem = new Picture(position);
 		elem->texture = atlas;
 		break;
+	case BUTTON:
+		elem = new Button(position);
+		elem->texture = atlas;
+		break;
 	default:
 		return nullptr;
 		break;
@@ -81,27 +87,28 @@ UIElement* j1Gui::AddUIElement(iPoint position, UIType type)
 	return elem;
 }
 
-UIElement * j1Gui::AddUIText(iPoint position, p2SString text, _TTF_Font* font)
+Label* j1Gui::AddUIText(iPoint position, p2SString text, _TTF_Font* font)
 {
 	UIElement* elem;
 
 	elem = new Label(position, text);
+	Label* new_label = (Label*)elem;
 
 	if (font != NULL) {
-		Label* new_label = (Label*)elem;
 		new_label->SetFont(font);
 	}
 
 	elements.add(elem);
 
-	return elem;
+	return new_label;
 }
 
-UIElement * j1Gui::AddUIPicture(iPoint position, p2SString texture_name, SDL_Rect section)
+Picture* j1Gui::AddUIPicture(iPoint position, p2SString texture_name, SDL_Rect section)
 {
 	UIElement* elem;
 
 	elem = new Picture(position);
+	Picture* new_picture = (Picture*)elem;
 
 	if (texture_name != "") {
 		SDL_Texture* newTexture = nullptr;
@@ -116,7 +123,37 @@ UIElement * j1Gui::AddUIPicture(iPoint position, p2SString texture_name, SDL_Rec
 
 	elements.add(elem);
 
-	return elem;
+	return new_picture;
+}
+
+Button * j1Gui::AddUIButton(iPoint position, p2SString texture_name, SDL_Rect up, SDL_Rect hover)
+{
+	UIElement* elem;
+
+	elem = new Button(position);
+	Button* new_Button = (Button*)elem;
+
+	if (texture_name != "") {
+		SDL_Texture* newTexture = nullptr;
+		newTexture = App->tex->Load(texture_name.GetString());
+		elem->texture = newTexture;
+	}
+	else
+		elem->texture = atlas;
+
+	if (!SDL_RectEmpty(&up)) {
+		new_Button->up = up;
+		new_Button->section = up;
+		new_Button->setPositionRect();
+	}
+
+	if (!SDL_RectEmpty(&hover)) {
+		new_Button->hover = hover;
+	}
+
+	elements.add(elem);
+
+	return new_Button;
 }
 
 // const getter for atlas
