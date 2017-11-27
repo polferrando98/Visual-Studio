@@ -59,10 +59,18 @@ bool j1Scene::Start()
 
 	App->gui->AddUIPicture({ 0,0 }, "gui/Glues-Logo.png"); //Logo
 
-	//App->gui->AddUIText({ 500,100 }, "Account name:",morfeus); //Button
+	App->gui->AddUIText({ 800,500 }, "Account name:",morfeus); //Input
+	App->gui->AddUIText({ 800,700 }, "Account Password:",morfeus); //Input
+	App->gui->AddUIButton({ 800,750 }, "Login", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
+
+	App->gui->AddUIButton({ 100,850 }, "Manage account", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
+	App->gui->AddUIButton({ 100,900 }, "Community site", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
+
+	App->gui->AddUIButton({ 1500,800 }, "Cinematics", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
+	App->gui->AddUIButton({ 1500,850 }, "Credits", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
+	App->gui->AddUIButton({ 1500,900 }, "Terms of use", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
 
 
-	Button* button1 = App->gui->AddUIButton({ 200,200 }, "Login", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 });
 	
 
 	return true;
