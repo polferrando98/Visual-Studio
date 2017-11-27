@@ -51,6 +51,8 @@ bool j1Gui::PostUpdate()
 	bool ret = true;
 	for (p2List_item<UIElement*>* element_iterator = elements.start; element_iterator != nullptr; element_iterator = element_iterator->next) {
 		ret = element_iterator->data->Update(App->dt);
+		if (debug_draw)
+			element_iterator->data->DebugDraw();
 	}
 	return ret;
 }
@@ -126,12 +128,16 @@ Picture* j1Gui::AddUIPicture(iPoint position, p2SString texture_name, SDL_Rect s
 	return new_picture;
 }
 
-Button * j1Gui::AddUIButton(iPoint position, p2SString texture_name, SDL_Rect up, SDL_Rect hover)
+Button * j1Gui::AddUIButton(iPoint position, p2SString label_text, p2SString texture_name, SDL_Rect up, SDL_Rect hover, SDL_Rect down)
 {
 	UIElement* elem;
 
 	elem = new Button(position);
 	Button* new_Button = (Button*)elem;
+
+	if (label_text != "") {
+		new_Button->label->SetText(label_text);
+	}
 
 	if (texture_name != "") {
 		SDL_Texture* newTexture = nullptr;
@@ -144,11 +150,15 @@ Button * j1Gui::AddUIButton(iPoint position, p2SString texture_name, SDL_Rect up
 	if (!SDL_RectEmpty(&up)) {
 		new_Button->up = up;
 		new_Button->section = up;
-		new_Button->setPositionRect();
+		new_Button->SetPositionRect();
 	}
 
 	if (!SDL_RectEmpty(&hover)) {
 		new_Button->hover = hover;
+	}
+
+	if (!SDL_RectEmpty(&down)) {
+		new_Button->down = down;
 	}
 
 	elements.add(elem);

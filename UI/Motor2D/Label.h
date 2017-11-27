@@ -11,10 +11,11 @@ public:
 	bool Update(float dt);
 	void SetText(p2SString text);
 	void SetFont(_TTF_Font* font);
+	void UpdateSize();
 	~Label();
 
 public:
-
+	iPoint size = { 0,0 };
 
 private:
 	p2SString text;

@@ -4,21 +4,30 @@ class Picture;
 class Label;
 
 enum ButtonState {BUTTON_UP, BUTTON_HOVER, BUTTON_DOWN};
+enum j1KeyState;
+
 class Button :
 	public UIElement
 {
 public:
 	Button(iPoint position);
 	bool Update(float dt);
-	bool setPositionRect();
+	bool SetPositionRect();
+	void CenterLabel();
 	void ManageSection();
 	~Button();
 
 public:
-	Label* label = nullptr;
-	SDL_Rect position_rect = { 0,0,0,0 };
-	SDL_Rect up = { 0,0,0,0 };
-	SDL_Rect hover = { 0,0,0,0 };
-	ButtonState state = BUTTON_UP;
+	Label*		label = nullptr;
+	iPoint		label_offset = { 0,0 };
+
+	j1KeyState	button_click_type;
+
+	SDL_Rect	position_rect = { 0,0,0,0 };
+	SDL_Rect	up = { 0,0,0,0 };
+	SDL_Rect	hover = { 0,0,0,0 };
+	SDL_Rect	down = { 0,0,0,0 };
+
+	ButtonState	state = BUTTON_UP;
 };
 

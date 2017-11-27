@@ -48,7 +48,9 @@ public:
 		return true;
 	}
 
-	void Draw();
+	void Draw() const;
+
+	void DebugDraw() const;
 
 
 public:

@@ -59,11 +59,10 @@ bool j1Scene::Start()
 
 	App->gui->AddUIPicture({ 0,0 }, "gui/Glues-Logo.png"); //Logo
 
-	App->gui->AddUIText({ 500,100 }, "Account name:",morfeus); //Button
+	//App->gui->AddUIText({ 500,100 }, "Account name:",morfeus); //Button
 
 
-	Button* button = App->gui->AddUIButton({ 200,200 }, "gui/button-atlas.png", { 0,0,146,30 }, { 0,50,146,30 });
-	button->label->SetText("PENE");
+	Button* button1 = App->gui->AddUIButton({ 200,200 }, "Login", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 });
 	
 
 	return true;
