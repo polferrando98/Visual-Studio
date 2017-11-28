@@ -41,6 +41,8 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {	
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+		debug_draw = !debug_draw;
 
 	return true;
 }

@@ -4,7 +4,11 @@ class Picture;
 class Label;
 
 enum ButtonState {BUTTON_UP, BUTTON_HOVER, BUTTON_DOWN};
+
+
 enum j1KeyState;
+
+class j1Module;
 
 class Button :
 	public UIElement
@@ -15,6 +19,8 @@ public:
 	bool SetPositionRect();
 	void CenterLabel();
 	void ManageSection();
+	void ManageState();
+	void ManageEvents();
 	~Button();
 
 public:
@@ -29,5 +35,6 @@ public:
 	SDL_Rect	down = { 0,0,0,0 };
 
 	ButtonState	state = BUTTON_UP;
+
 };
 

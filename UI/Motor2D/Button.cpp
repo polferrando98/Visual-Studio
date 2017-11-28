@@ -16,33 +16,20 @@ Button::Button(iPoint position) : UIElement(position, BUTTON)
 
 bool Button::Update(float dt)
 {
-	CenterLabel();
-
-	SDL_Point pos;
-	App->input->GetMousePosition(pos.x, pos.y);
-
-	if (!SDL_RectEmpty(&position_rect)) {
-		if (SDL_PointInRect(&pos, &position_rect)) 
-			state = BUTTON_HOVER;
-		else 
-			state = BUTTON_UP;
-
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == button_click_type)
-		{
-			if (state = BUTTON_HOVER) 
-			{
-				state = BUTTON_DOWN;
-				LOG("Click! :)");
-			}
-		}
-		
-	}
-	else {
-		LOG("Error, button without position rect"); 
+	if (SDL_RectEmpty(&position_rect))
+	{
+		LOG("Error, button without position rect");
 		return false;
 	}
+	CenterLabel();
 
-	ManageSection();
+	ManageEvents();
+
+	if (button_event != button_last_event) {
+		ManageState();
+		ManageSection();
+	}
+	button_last_event = button_event;
 
 	Draw();
 
@@ -82,13 +69,56 @@ void Button::ManageSection()
 		break;
 	case BUTTON_HOVER:
 		if (!SDL_RectEmpty(&hover))
-		section = hover;
+			section = hover;
 		break;
 	case BUTTON_DOWN:
 		if (!SDL_RectEmpty(&down))
 			section = down;
 		break;
 	default:
+		break;
+	}
+}
+
+void Button::ManageState()
+{
+	switch (button_event)
+	{
+	case MOUSE_ENTER:
+		state = BUTTON_HOVER;
+		break;
+	case MOUSE_LEAVE:
+		state = BUTTON_UP;
+		break;
+	case CLICK_DOWN:
+		state = BUTTON_DOWN;
+		break;
+	case CLICK_UP:
+		state = BUTTON_HOVER;
+		break;
+	}
+}
+
+void Button::ManageEvents()
+{
+	SDL_Point pos;
+	App->input->GetMousePosition(pos.x, pos.y);
+
+	switch (state)
+	{
+	case BUTTON_UP:
+		if (SDL_PointInRect(&pos, &position_rect))
+			button_event = MOUSE_ENTER;
+		break;
+	case BUTTON_HOVER:
+		if (!SDL_PointInRect(&pos, &position_rect))
+			button_event = MOUSE_LEAVE;
+		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+			button_event = CLICK_DOWN;
+		break;
+	case BUTTON_DOWN:
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+			button_event = CLICK_UP;
 		break;
 	}
 }

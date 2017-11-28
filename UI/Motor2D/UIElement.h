@@ -6,6 +6,9 @@
 
 struct SDL_Texture;
 enum UIType { LABEL, PICTURE, BUTTON };
+enum Mouse_UI_Event { MOUSE_ENTER, MOUSE_LEAVE, CLICK_DOWN, CLICK_UP };
+
+class j1Module;
 
 class UIElement
 {
@@ -54,10 +57,16 @@ public:
 
 
 public:
-	iPoint position = { 0, 0 };
-	SDL_Texture* texture = nullptr;
-	UIType type;
-	SDL_Rect section = { 0,0,0,0 };
-	bool move_with_camera = true; 
+	iPoint			position = { 0, 0 };
+	SDL_Texture*	texture = nullptr;
+	UIType			type;
+	SDL_Rect		section = { 0,0,0,0 };
+	bool			move_with_camera = true;
+
+protected:
+	j1Module* listener = nullptr;
+
+	Mouse_UI_Event button_event = MOUSE_LEAVE;
+	Mouse_UI_Event button_last_event = MOUSE_LEAVE;
 };
 
