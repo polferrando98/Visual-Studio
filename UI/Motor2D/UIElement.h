@@ -62,8 +62,6 @@ public:
 
 	void UpdateOldPos();
 
-	void OnButtonClick(UIElement* trigger, Mouse_UI_Event* event_) {}
-
 	void Focus();
 
 public:
@@ -76,10 +74,9 @@ public:
 	bool			move_with_camera = true;
 	fPoint			pivot = { 0.5,0.5 };
 	uint			id =0;
-protected:
 	j1Module* listener = nullptr;
-
-
+protected:
+	
 	Mouse_UI_Event button_event = MOUSE_LEAVE;
 	Mouse_UI_Event button_last_event = MOUSE_LEAVE;
 };

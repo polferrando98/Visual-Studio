@@ -34,6 +34,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void OnButtonClick(UIElement* trigger, Mouse_UI_Event mouse_event);
 private:
 	SDL_Texture* debug_tex;
 	GuiImage* banner;

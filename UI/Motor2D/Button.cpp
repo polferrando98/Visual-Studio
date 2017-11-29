@@ -117,7 +117,7 @@ void Button::ManageEvents()
 		if (SDL_PointInRect(&pos, &position_rect))
 		{
 			button_event = MOUSE_ENTER;
-			//App->gui->OnButtonClick();
+			
 			LOG("MOUSE HAS ENTERED");
 		}
 		break;
@@ -132,8 +132,12 @@ void Button::ManageEvents()
 		break;
 	case BUTTON_DOWN:
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+		{
 			button_event = CLICK_UP;
-		break;
+			if(listener)
+				listener->OnButtonClick(this, button_event);
+			break;
+		}
 	}
 }
 
