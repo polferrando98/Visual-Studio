@@ -18,9 +18,11 @@ public:
 	bool Update(float dt);
 	bool SetPositionRect();
 	void CenterLabel();
+
 	void ManageSection();
 	void ManageState();
 	void ManageEvents();
+
 	~Button();
 
 public:

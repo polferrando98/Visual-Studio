@@ -55,13 +55,20 @@ public:
 
 	void DebugDraw() const;
 
+	void MoveInPercentage(fPoint position_in_percentage);
+
+	void AdjustToPivot();
+
 
 public:
 	iPoint			position = { 0, 0 };
+
+
 	SDL_Texture*	texture = nullptr;
 	UIType			type;
 	SDL_Rect		section = { 0,0,0,0 };
 	bool			move_with_camera = true;
+	fPoint			pivot = { 0.5,0.5 };
 
 protected:
 	j1Module* listener = nullptr;

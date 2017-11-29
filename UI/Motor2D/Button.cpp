@@ -6,12 +6,14 @@
 #include "Label.h"
 #include "j1Render.h"
 #include "p2Log.h"
+#include "j1Window.h"
 
 
 Button::Button(iPoint position) : UIElement(position, BUTTON)
 {
 	label = new Label(position);
 	button_click_type = KEY_DOWN;
+	AdjustToPivot();
 }
 
 bool Button::Update(float dt)
@@ -122,6 +124,8 @@ void Button::ManageEvents()
 		break;
 	}
 }
+
+
 
 Button::~Button()
 {

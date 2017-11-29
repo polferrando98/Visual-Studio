@@ -55,7 +55,7 @@ bool j1Scene::Start()
 
 	_TTF_Font* morfeus = App->font->Load("fonts/open_sans/OpenSans-ExtraBoldItalic.ttf", 18);
 
-	App->gui->AddUIPicture({ 0,0 }, "gui/login_background.png"); //Background
+	//App->gui->AddUIPicture({ 0,0 }, "gui/login_background.png"); //Background
 
 	App->gui->AddUIPicture({ 0,0 }, "gui/Glues-Logo.png"); //Logo
 
@@ -68,8 +68,8 @@ bool j1Scene::Start()
 
 	App->gui->AddUIButton({ 1500,800 }, "Cinematics", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
 	App->gui->AddUIButton({ 1500,850 }, "Credits", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
-	App->gui->AddUIButton({ 1500,900 }, "Terms of use", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
-
+	Button* terms_of_use_but = App->gui->AddUIButton({ 1500,900 }, "Terms of use", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
+	terms_of_use_but->MoveInPercentage({ 50,50 });
 
 	
 
