@@ -42,39 +42,16 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {	
+	bool ret = true;
+
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		debug_draw = !debug_draw;
 
-	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
-	{
-		if (curr_tab == elements.count() - 1)
-			curr_tab = 0;
-		else
-			curr_tab++; 
-
-		switch (elements.At(curr_tab)->data->type)
-		{
-		case BUTTON: 
-			LOG("BUTTON");
-			break; 
-
-		case PICTURE:
-			LOG("PICTURE");
-			break; 
-
-		case LABEL:
-			LOG("LABEL");
-			break;
-		}
-		
-	}
-	bool ret = true;
+	ManageFocus();
 
 	for (p2List_item<UIElement*>* element_iterator = elements.start; element_iterator != nullptr; element_iterator = element_iterator->next) {
 		ret = element_iterator->data->PreUpdate();
 	}
-
-	
 
 	return ret;
 }
@@ -99,6 +76,33 @@ bool j1Gui::CleanUp()
 	LOG("Freeing GUI");
 
 	return true;
+}
+
+void j1Gui::ManageFocus()
+{
+	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+	{
+		if (curr_tab == elements.count() - 1)
+			curr_tab = 0;
+		else
+			curr_tab++;
+
+		switch (elements.At(curr_tab)->data->type)
+		{
+		case BUTTON:
+			LOG("BUTTON");
+			break;
+
+		case PICTURE:
+			LOG("PICTURE");
+			break;
+
+		case LABEL:
+			LOG("LABEL");
+			break;
+		}
+
+	}
 }
 
 UIElement* j1Gui::AddUIElement(iPoint position, UIType type)

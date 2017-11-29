@@ -74,7 +74,7 @@ public:
 		return true;
 	}
 
-	virtual void OnButtonClick(UIElement* trigger, Mouse_UI_Event* event_) {}
+	virtual void OnButtonClick(UIElement* trigger, Mouse_UI_Event* mouse_event) {}
 
 public:
 

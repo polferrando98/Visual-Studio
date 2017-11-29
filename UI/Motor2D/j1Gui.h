@@ -39,7 +39,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	// TODO 2: Create the factory methods
+	void ManageFocus();
+
 	// Gui creation functions
 	UIElement* AddUIElement(iPoint position, UIType type);
 
