@@ -69,3 +69,8 @@ void UIElement::AdjustToPivot()
 
 }
 
+void UIElement::UpdateOldPos()
+{
+	old_position = position;
+}
+

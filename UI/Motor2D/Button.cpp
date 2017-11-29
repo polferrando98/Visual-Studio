@@ -13,11 +13,15 @@ Button::Button(iPoint position) : UIElement(position, BUTTON)
 {
 	label = new Label(position);
 	button_click_type = KEY_DOWN;
-	AdjustToPivot();
+	//AdjustToPivot();
 }
 
 bool Button::Update(float dt)
 {
+	if (old_position != position) {
+		SetPositionRect();
+	}
+
 	if (SDL_RectEmpty(&position_rect))
 	{
 		LOG("Error, button without position rect");
@@ -44,8 +48,8 @@ bool Button::SetPositionRect()
 	if (!SDL_RectEmpty(&section)) {
 
 		position_rect = {
-		this->position.x,
-		this->position.y,
+		position.x,
+		position.y,
 		section.w,
 		section.h
 		};

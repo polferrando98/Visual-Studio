@@ -44,7 +44,12 @@ bool j1Gui::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		debug_draw = !debug_draw;
 
-	return true;
+	bool ret = true;
+
+	for (p2List_item<UIElement*>* element_iterator = elements.start; element_iterator != nullptr; element_iterator = element_iterator->next) {
+		ret = element_iterator->data->PreUpdate();
+	}
+	return ret;
 }
 
 // Called after all Updates
@@ -53,8 +58,10 @@ bool j1Gui::PostUpdate()
 	bool ret = true;
 	for (p2List_item<UIElement*>* element_iterator = elements.start; element_iterator != nullptr; element_iterator = element_iterator->next) {
 		ret = element_iterator->data->Update(App->dt);
+
 		if (debug_draw)
 			element_iterator->data->DebugDraw();
+		element_iterator->data->UpdateOldPos();
 	}
 	return ret;
 }

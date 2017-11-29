@@ -59,10 +59,12 @@ public:
 
 	void AdjustToPivot();
 
+	void UpdateOldPos();
+
 
 public:
 	iPoint			position = { 0, 0 };
-
+	iPoint			old_position = position;
 
 	SDL_Texture*	texture = nullptr;
 	UIType			type;
