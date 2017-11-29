@@ -7,18 +7,19 @@
 #include "j1Render.h"
 #include "p2Log.h"
 #include "j1Window.h"
+#include "j1Module.h"
 
 
 Button::Button(iPoint position) : UIElement(position, BUTTON)
 {
 	label = new Label(position);
 	button_click_type = KEY_DOWN;
-	//AdjustToPivot();
 }
 
 bool Button::Update(float dt)
 {
 	if (old_position != position) {
+		AdjustToPivot();
 		SetPositionRect();
 	}
 
@@ -114,11 +115,18 @@ void Button::ManageEvents()
 	{
 	case BUTTON_UP:
 		if (SDL_PointInRect(&pos, &position_rect))
+		{
 			button_event = MOUSE_ENTER;
+			//App->gui->OnButtonClick();
+			LOG("MOUSE HAS ENTERED");
+		}
 		break;
 	case BUTTON_HOVER:
 		if (!SDL_PointInRect(&pos, &position_rect))
+		{
 			button_event = MOUSE_LEAVE;
+			LOG("MOUSE HAS LEFT");
+		}
 		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 			button_event = CLICK_DOWN;
 		break;

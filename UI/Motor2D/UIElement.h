@@ -17,6 +17,7 @@ public:
 		this->position = position;
 		this->texture = texture;
 		this->type = type;
+
 	};
 	~UIElement() {};
 
@@ -61,6 +62,9 @@ public:
 
 	void UpdateOldPos();
 
+	void OnButtonClick(UIElement* trigger, Mouse_UI_Event* event_) {}
+
+	void Focus();
 
 public:
 	iPoint			position = { 0, 0 };
@@ -71,9 +75,10 @@ public:
 	SDL_Rect		section = { 0,0,0,0 };
 	bool			move_with_camera = true;
 	fPoint			pivot = { 0.5,0.5 };
-
+	uint			id =0;
 protected:
 	j1Module* listener = nullptr;
+
 
 	Mouse_UI_Event button_event = MOUSE_LEAVE;
 	Mouse_UI_Event button_last_event = MOUSE_LEAVE;

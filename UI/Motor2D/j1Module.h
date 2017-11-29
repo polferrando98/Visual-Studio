@@ -8,6 +8,7 @@
 
 #include "p2SString.h"
 #include "PugiXml\src\pugixml.hpp"
+#include "UIElement.h"
 
 class j1App;
 class UIElement;
@@ -73,7 +74,7 @@ public:
 		return true;
 	}
 
-	virtual void OnButtonClick(UIElement* trigger) {}
+	virtual void OnButtonClick(UIElement* trigger, Mouse_UI_Event* event_) {}
 
 public:
 

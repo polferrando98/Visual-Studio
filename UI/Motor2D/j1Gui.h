@@ -61,6 +61,9 @@ private:
 
 
 	p2List<UIElement*> elements;
+	UIElement* curr_element; 
+
+	uint curr_tab = 0; 
 
 	
 };

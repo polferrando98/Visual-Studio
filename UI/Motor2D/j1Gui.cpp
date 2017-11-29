@@ -13,6 +13,7 @@
 j1Gui::j1Gui() : j1Module()
 {
 	name.create("gui");
+	curr_element = nullptr; 
 }
 
 // Destructor
@@ -44,11 +45,37 @@ bool j1Gui::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		debug_draw = !debug_draw;
 
+	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+	{
+		if (curr_tab == elements.count() - 1)
+			curr_tab = 0;
+		else
+			curr_tab++; 
+
+		switch (elements.At(curr_tab)->data->type)
+		{
+		case BUTTON: 
+			LOG("BUTTON");
+			break; 
+
+		case PICTURE:
+			LOG("PICTURE");
+			break; 
+
+		case LABEL:
+			LOG("LABEL");
+			break;
+		}
+		
+	}
 	bool ret = true;
 
 	for (p2List_item<UIElement*>* element_iterator = elements.start; element_iterator != nullptr; element_iterator = element_iterator->next) {
 		ret = element_iterator->data->PreUpdate();
 	}
+
+	
+
 	return ret;
 }
 
@@ -105,6 +132,8 @@ Label* j1Gui::AddUIText(iPoint position, p2SString text, _TTF_Font* font)
 	elem = new Label(position, text);
 	Label* new_label = (Label*)elem;
 
+	elem->id = elements.count();
+
 	if (font != NULL) {
 		new_label->SetFont(font);
 	}
@@ -120,6 +149,8 @@ Picture* j1Gui::AddUIPicture(iPoint position, p2SString texture_name, SDL_Rect s
 
 	elem = new Picture(position);
 	Picture* new_picture = (Picture*)elem;
+
+	elem->id = elements.count();
 
 	if (texture_name != "") {
 		SDL_Texture* newTexture = nullptr;
@@ -143,6 +174,8 @@ Button * j1Gui::AddUIButton(iPoint position, p2SString label_text, p2SString tex
 
 	elem = new Button(position);
 	Button* new_Button = (Button*)elem;
+
+	elem->id = elements.count();
 
 	if (label_text != "") {
 		new_Button->label->SetText(label_text);
