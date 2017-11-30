@@ -20,16 +20,14 @@ bool Button::Update(float dt)
 	bool ret;
 	ret = CheckPositionRect(type);
 
-	SetPositionRect();
-
 
 	if (PositionChanged()) {
 		AdjustToPivot();
 		SetPositionRect();
 	}
 
-	CenterLabel();
 
+	
 	ManageEvents();
 
 	if (element_event != element_last_event) {
@@ -40,6 +38,7 @@ bool Button::Update(float dt)
 	ManageDrag();
 
 	Draw();
+	CenterLabel();
 
 	element_last_event = element_event;
 	label->Update(dt);
@@ -48,8 +47,8 @@ bool Button::Update(float dt)
 
 void Button::CenterLabel()
 {
-	label->position.x = position.x + (section.w / 2) - (label->size.x / 2);     //Not entirely centered don't know why
-	label->position.y = position.y + (section.h / 2) - (label->size.y / 2);
+	label->position.x = draw_positon.x + (section.w / 2) - (label->size.x / 2);     //Not entirely centered don't know why
+	label->position.y = draw_positon.y + (section.h / 2) - (label->size.y / 2);
 }
 
 void Button::ManageSection()

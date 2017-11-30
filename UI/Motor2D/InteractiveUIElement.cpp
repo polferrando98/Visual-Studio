@@ -132,3 +132,15 @@ void InteractiveUIElement::ManageState()
 		break;
 	}
 }
+
+void InteractiveUIElement::Draw()
+{
+	SetPositionRect();
+	SetDrawPosition();
+	if (SDL_RectEmpty(&section)) {
+		App->render->Blit(texture, draw_positon.x, draw_positon.y);
+	}
+	else {
+		App->render->Blit(texture, draw_positon.x, draw_positon.y, &section);
+	}
+}

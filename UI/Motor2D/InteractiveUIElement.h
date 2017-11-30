@@ -20,6 +20,7 @@ public:
 	void saveMousePos(iPoint& mousePos);
 	bool ManageDrag();
 	void ManageState();
+	void Draw();
 	
 
 protected:
