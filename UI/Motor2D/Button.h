@@ -23,6 +23,10 @@ public:
 	void ManageState();
 	void ManageEvents();
 
+	void saveMousePos(iPoint& mousePos);
+
+	bool ManageDrag();
+
 	~Button();
 
 public:
@@ -37,6 +41,10 @@ public:
 	SDL_Rect	down = { 0,0,0,0 };
 
 	ButtonState	state = BUTTON_UP;
+
+	iPoint begin_drag_point;
+
+	bool		draggabel = true;
 
 };
 

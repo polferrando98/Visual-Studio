@@ -76,6 +76,8 @@ public:
 
 	virtual void OnButtonClick(UIElement* trigger, Mouse_UI_Event mouse_event) {}
 
+	virtual void OnButtonHover(UIElement* trigger, Mouse_UI_Event mouse_event) {}
+
 public:
 
 	p2SString	name;

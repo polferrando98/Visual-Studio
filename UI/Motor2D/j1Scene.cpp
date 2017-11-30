@@ -72,7 +72,7 @@ bool j1Scene::Start()
 	Button* terms_of_use_but = App->gui->AddUIButton({ 1500,900 }, "Terms of use", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
 
 	terms_of_use_but->listener = App->scene;
-	terms_of_use_but->MoveInPercentage({ 50,50 });
+	terms_of_use_but->MoveInPercentage({ 10,50 });
 
 	
 
@@ -183,5 +183,10 @@ bool j1Scene::CleanUp()
 void j1Scene::OnButtonClick(UIElement * trigger, Mouse_UI_Event mouse_event)
 {
 	//if(trigger.name == "button_name")
-	LOG("HELLO");
+	LOG("hello from scene");
+}
+
+void j1Scene::OnButtonHover(UIElement * trigger, Mouse_UI_Event mouse_event)
+{
+	LOG("hello from scene");
 }

@@ -36,10 +36,13 @@ bool Button::Update(float dt)
 		ManageState();
 		ManageSection();
 	}
-	button_last_event = button_event;
+
+	ManageDrag();
 
 	Draw();
 
+
+	button_last_event = button_event;
 	label->Update(dt);
 	return true;
 }
@@ -77,6 +80,8 @@ void Button::ManageSection()
 	case BUTTON_HOVER:
 		if (!SDL_RectEmpty(&hover))
 			section = hover;
+		if (listener)
+			listener->OnButtonHover(this, button_event);
 		break;
 	case BUTTON_DOWN:
 		if (!SDL_RectEmpty(&down))
@@ -117,7 +122,7 @@ void Button::ManageEvents()
 		if (SDL_PointInRect(&pos, &position_rect))
 		{
 			button_event = MOUSE_ENTER;
-			
+
 			LOG("MOUSE HAS ENTERED");
 		}
 		break;
@@ -127,8 +132,9 @@ void Button::ManageEvents()
 			button_event = MOUSE_LEAVE;
 			LOG("MOUSE HAS LEFT");
 		}
-		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
 			button_event = CLICK_DOWN;
+		}
 		break;
 	case BUTTON_DOWN:
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
@@ -139,6 +145,37 @@ void Button::ManageEvents()
 			break;
 		}
 	}
+}
+
+void Button::saveMousePos(iPoint& mousePos)
+{
+	App->input->GetMousePosition(mousePos.x, mousePos.y);
+}
+
+bool Button::ManageDrag()
+{
+	if (!draggabel)
+		return false;
+
+	if (button_event != button_last_event) {
+		if (button_event == CLICK_DOWN)
+			saveMousePos(begin_drag_point);
+	}
+
+	if (state == BUTTON_DOWN) {
+		iPoint curr_mouse_pos;
+		App->input->GetMousePosition(curr_mouse_pos.x, curr_mouse_pos.y);
+
+		iPoint differential = curr_mouse_pos - begin_drag_point;
+
+		position += differential;
+		
+		SetPositionRect();
+		saveMousePos(begin_drag_point);
+	}
+	
+
+	return true;
 }
 
 
