@@ -184,6 +184,7 @@ void j1Scene::OnButtonClick(UIElement * trigger, Mouse_UI_Event mouse_event)
 {
 	//if(trigger.name == "button_name")
 	LOG("hello from scene");
+
 }
 
 void j1Scene::OnButtonHover(UIElement * trigger, Mouse_UI_Event mouse_event)

@@ -5,15 +5,17 @@
 #include "j1Gui.h"
 #include "Label.h"
 #include "j1Render.h"
-#include "p2Log.h"
 #include "j1Window.h"
 #include "j1Module.h"
+#include "InteractiveUIElement.h"
 
 
-Button::Button(iPoint position) : UIElement(position, BUTTON)
+
+Button::Button(iPoint position) : InteractiveUIElement(position, BUTTON)
 {
 	label = new Label(position);
 	button_click_type = KEY_DOWN;
+
 }
 
 bool Button::Update(float dt)
@@ -47,23 +49,6 @@ bool Button::Update(float dt)
 	return true;
 }
 
-bool Button::SetPositionRect()
-{
-	if (!SDL_RectEmpty(&section)) {
-
-		position_rect = {
-		position.x,
-		position.y,
-		section.w,
-		section.h
-		};
-
-		return true;
-	}
-	else
-		return false;
-}
-
 void Button::CenterLabel()
 {
 	label->position.x = position.x + (section.w / 2) - (label->size.x / 2);     //Not entirely centered don't know why
@@ -74,16 +59,16 @@ void Button::ManageSection()
 {
 	switch (state)
 	{
-	case BUTTON_UP:
+	case ELEMENT_UP:
 		section = up;
 		break;
-	case BUTTON_HOVER:
+	case ELEMENT_HOVER:
 		if (!SDL_RectEmpty(&hover))
 			section = hover;
 		if (listener)
 			listener->OnButtonHover(this, button_event);
 		break;
-	case BUTTON_DOWN:
+	case ELEMENT_DOWN:
 		if (!SDL_RectEmpty(&down))
 			section = down;
 		break;
@@ -97,53 +82,17 @@ void Button::ManageState()
 	switch (button_event)
 	{
 	case MOUSE_ENTER:
-		state = BUTTON_HOVER;
+		state = ELEMENT_HOVER;
 		break;
 	case MOUSE_LEAVE:
-		state = BUTTON_UP;
+		state = ELEMENT_UP;
 		break;
 	case CLICK_DOWN:
-		state = BUTTON_DOWN;
+		state = ELEMENT_DOWN;
 		break;
 	case CLICK_UP:
-		state = BUTTON_HOVER;
+		state = ELEMENT_HOVER;
 		break;
-	}
-}
-
-void Button::ManageEvents()
-{
-	SDL_Point pos;
-	App->input->GetMousePosition(pos.x, pos.y);
-
-	switch (state)
-	{
-	case BUTTON_UP:
-		if (SDL_PointInRect(&pos, &position_rect))
-		{
-			button_event = MOUSE_ENTER;
-
-			LOG("MOUSE HAS ENTERED");
-		}
-		break;
-	case BUTTON_HOVER:
-		if (!SDL_PointInRect(&pos, &position_rect))
-		{
-			button_event = MOUSE_LEAVE;
-			LOG("MOUSE HAS LEFT");
-		}
-		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
-			button_event = CLICK_DOWN;
-		}
-		break;
-	case BUTTON_DOWN:
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
-		{
-			button_event = CLICK_UP;
-			if(listener)
-				listener->OnButtonClick(this, button_event);
-			break;
-		}
 	}
 }
 
@@ -162,7 +111,7 @@ bool Button::ManageDrag()
 			saveMousePos(begin_drag_point);
 	}
 
-	if (state == BUTTON_DOWN) {
+	if (state == ELEMENT_DOWN) {
 		iPoint curr_mouse_pos;
 		App->input->GetMousePosition(curr_mouse_pos.x, curr_mouse_pos.y);
 
