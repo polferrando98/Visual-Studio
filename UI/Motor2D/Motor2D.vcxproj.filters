@@ -64,7 +64,9 @@
     <ClCompile Include="InteractiveUIElement.cpp">
       <Filter>Desenvolupament  ========\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Window.cpp">
+      <Filter>Desenvolupament  ========\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -148,7 +150,9 @@
     <ClInclude Include="InteractiveUIElement.h">
       <Filter>Desenvolupament  ========\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="Window.h">
+      <Filter>Desenvolupament  ========\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">

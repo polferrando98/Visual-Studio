@@ -9,6 +9,7 @@
 #include "Picture.h"
 #include "Label.h"
 #include "Button.h"
+#include "Window.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -219,7 +220,7 @@ Window * j1Gui::AddUIWindow(iPoint position, SDL_Rect section)
 {
 	UIElement* elem;
 
-	elem = new Picture(position);
+	elem = new Window(position);
 	Window* new_window = (Window*)elem;
 
 	elem->id = elements.count();

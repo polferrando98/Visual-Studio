@@ -24,6 +24,7 @@ public:
 	bool CheckPositionRect();
 	void saveMousePos(iPoint& mousePos);
 	bool ManageDrag();
+	void ManageState();
 	
 
 protected:

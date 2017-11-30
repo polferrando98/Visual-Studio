@@ -62,8 +62,6 @@ public:
 
 	void UpdateOldPos();
 
-	void Focus();
-
 	bool PositionChanged();
 
 	public:

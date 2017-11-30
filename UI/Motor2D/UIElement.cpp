@@ -75,11 +75,6 @@ void UIElement::UpdateOldPos()
 	old_position = position;
 }
 
-void UIElement::Focus()
-{
-	
-}
-
 bool UIElement::PositionChanged()
 {
 	return (old_position != position) ? true : false;

@@ -13,22 +13,22 @@ InteractiveUIElement::~InteractiveUIElement()
 
 bool InteractiveUIElement::SetPositionRect()
 {
-	
+
 	if (!SDL_RectEmpty(&section)) {
 
-			
+
 		position_rect = {
 				position.x,
 				position.y,
 				section.w,
 				section.h
-			};
+		};
 
-			return true;
-		}
-		else
-			return false;
-	
+		return true;
+	}
+	else
+		return false;
+
 }
 
 void InteractiveUIElement::ManageEvents()
@@ -114,4 +114,25 @@ bool InteractiveUIElement::ManageDrag()
 
 
 	return true;
+}
+
+void InteractiveUIElement::ManageState()
+{
+
+	switch (element_event)
+	{
+	case MOUSE_ENTER:
+		state = ELEMENT_HOVER;
+		break;
+	case MOUSE_LEAVE:
+		state = ELEMENT_UP;
+		break;
+	case CLICK_DOWN:
+		state = ELEMENT_DOWN;
+		break;
+	case CLICK_UP:
+		state = ELEMENT_HOVER;
+		break;
+	}
+
 }

@@ -8,18 +8,22 @@ Window::Window(iPoint position) :InteractiveUIElement(position, WINDOW)
 
 bool Window::Update(float dt)
 {
+	bool ret;
+
 	ManagePositionChanges();
 
-	return CheckPositionRect();
+	ret = CheckPositionRect();
 
 	ManageEvents();
 
+	ManageState();
+
+	ManageDrag();
+
 	Draw();
 
-	
-
 	element_last_event = element_event;
-	return true;
+	return ret;
 }
 
 Window::~Window()
