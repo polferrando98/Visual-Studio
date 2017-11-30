@@ -27,7 +27,6 @@ bool Button::Update(float dt)
 	}
 
 
-	
 	ManageEvents();
 
 	if (element_event != element_last_event) {
