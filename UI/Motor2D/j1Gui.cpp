@@ -45,7 +45,10 @@ bool j1Gui::PreUpdate()
 	bool ret = true;
 
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+	{
 		debug_draw = !debug_draw;
+		
+	}
 
 	ManageFocus();
 

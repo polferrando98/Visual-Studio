@@ -13,7 +13,22 @@ InteractiveUIElement::~InteractiveUIElement()
 
 bool InteractiveUIElement::SetPositionRect()
 {
-	return false;
+	
+	if (!SDL_RectEmpty(&section)) {
+
+			
+		position_rect = {
+				position.x,
+				position.y,
+				section.w,
+				section.h
+			};
+
+			return true;
+		}
+		else
+			return false;
+	
 }
 
 void InteractiveUIElement::DragElement()

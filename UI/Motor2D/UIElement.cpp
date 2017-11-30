@@ -23,7 +23,10 @@ void UIElement::DebugDraw() const
 {	
 	if (move_with_camera) {
 		if (!SDL_RectEmpty(&section)) 
+		//if(focus == false)
 				App->render->DrawQuad({ position.x - App->render->camera.x,position.y - App->render->camera.y, section.w, section.h }, 255, 0, 0, 255, false);
+			//else
+				//App->render->DrawQuad({ position.x - App->render->camera.x,position.y - App->render->camera.y, section.w, section.h }, 0, 0, 255, 255, false);
 
 		else { //if section is empty we will draw the full texture
 			iPoint size;

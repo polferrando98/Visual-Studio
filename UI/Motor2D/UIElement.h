@@ -76,6 +76,8 @@ public:
 	uint			id =0;
 	j1Module* listener = nullptr;
 
+	bool focus = true;
+
 };
 
 #endif
