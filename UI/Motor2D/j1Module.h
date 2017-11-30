@@ -12,6 +12,7 @@
 
 class j1App;
 class UIElement;
+enum Mouse_UI_Event;
 
 class j1Module
 {

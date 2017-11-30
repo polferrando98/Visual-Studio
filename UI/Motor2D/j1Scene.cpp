@@ -183,5 +183,5 @@ bool j1Scene::CleanUp()
 void j1Scene::OnButtonClick(UIElement * trigger, Mouse_UI_Event mouse_event)
 {
 	//if(trigger.name == "button_name")
-	LOG("HELLO");
+	LOG("hello from scene");
 }

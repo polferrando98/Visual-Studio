@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __UIELEMENT_H__
+#define __UIELEMENT_H__
 #include "p2SString.h"
 #include "PugiXml\src\pugixml.hpp"
 #include "p2Point.h"
@@ -6,7 +7,6 @@
 
 struct SDL_Texture;
 enum UIType { LABEL, PICTURE, BUTTON };
-enum Mouse_UI_Event { MOUSE_ENTER, MOUSE_LEAVE, CLICK_DOWN, CLICK_UP };
 
 class j1Module;
 
@@ -75,9 +75,7 @@ public:
 	fPoint			pivot = { 0.5,0.5 };
 	uint			id =0;
 	j1Module* listener = nullptr;
-protected:
-	
-	Mouse_UI_Event button_event = MOUSE_LEAVE;
-	Mouse_UI_Event button_last_event = MOUSE_LEAVE;
+
 };
 
+#endif

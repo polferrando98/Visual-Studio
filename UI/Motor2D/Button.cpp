@@ -8,9 +8,11 @@
 #include "p2Log.h"
 #include "j1Window.h"
 #include "j1Module.h"
+#include "InteractiveUIElement.h"
+#include "UIElement.h"
 
 
-Button::Button(iPoint position) : UIElement(position, BUTTON)
+Button::Button(iPoint position) : InteractiveUIElement(position, BUTTON)
 {
 	label = new Label(position);
 	button_click_type = KEY_DOWN;
@@ -71,14 +73,14 @@ void Button::ManageSection()
 {
 	switch (state)
 	{
-	case BUTTON_UP:
+	case ELEMENT_UP:
 		section = up;
 		break;
-	case BUTTON_HOVER:
+	case ELEMENT_HOVER:
 		if (!SDL_RectEmpty(&hover))
 			section = hover;
 		break;
-	case BUTTON_DOWN:
+	case ELEMENT_DOWN:
 		if (!SDL_RectEmpty(&down))
 			section = down;
 		break;
@@ -92,16 +94,16 @@ void Button::ManageState()
 	switch (button_event)
 	{
 	case MOUSE_ENTER:
-		state = BUTTON_HOVER;
+		state = ELEMENT_HOVER;
 		break;
 	case MOUSE_LEAVE:
-		state = BUTTON_UP;
+		state = ELEMENT_UP;
 		break;
 	case CLICK_DOWN:
-		state = BUTTON_DOWN;
+		state = ELEMENT_DOWN;
 		break;
 	case CLICK_UP:
-		state = BUTTON_HOVER;
+		state = ELEMENT_HOVER;
 		break;
 	}
 }
@@ -113,7 +115,7 @@ void Button::ManageEvents()
 
 	switch (state)
 	{
-	case BUTTON_UP:
+	case ELEMENT_UP:
 		if (SDL_PointInRect(&pos, &position_rect))
 		{
 			button_event = MOUSE_ENTER;
@@ -121,7 +123,7 @@ void Button::ManageEvents()
 			LOG("MOUSE HAS ENTERED");
 		}
 		break;
-	case BUTTON_HOVER:
+	case ELEMENT_HOVER:
 		if (!SDL_PointInRect(&pos, &position_rect))
 		{
 			button_event = MOUSE_LEAVE;
@@ -130,7 +132,7 @@ void Button::ManageEvents()
 		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 			button_event = CLICK_DOWN;
 		break;
-	case BUTTON_DOWN:
+	case ELEMENT_DOWN:
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
 		{
 			button_event = CLICK_UP;
