@@ -15,26 +15,20 @@ Button::Button(iPoint position) : InteractiveUIElement(position, BUTTON)
 {
 	label = new Label(position);
 	button_click_type = KEY_DOWN;
-
 }
 
 bool Button::Update(float dt)
 {
-	if (old_position != position) {
-		AdjustToPivot();
-		SetPositionRect();
-	}
+	bool ret;
+	ManagePositionChanges();
 
-	if (SDL_RectEmpty(&position_rect))
-	{
-		LOG("Error, button without position rect");
-		return false;
-	}
+	ret = CheckPositionRect();
+
 	CenterLabel();
 
 	ManageEvents();
 
-	if (button_event != button_last_event) {
+	if (element_event != element_last_event) {
 		ManageState();
 		ManageSection();
 	}
@@ -43,10 +37,9 @@ bool Button::Update(float dt)
 
 	Draw();
 
-
-	button_last_event = button_event;
+	element_last_event = element_event;
 	label->Update(dt);
-	return true;
+	return ret;
 }
 
 void Button::CenterLabel()
@@ -66,7 +59,7 @@ void Button::ManageSection()
 		if (!SDL_RectEmpty(&hover))
 			section = hover;
 		if (listener)
-			listener->OnButtonHover(this, button_event);
+			listener->OnButtonHover(this, element_event);
 		break;
 	case ELEMENT_DOWN:
 		if (!SDL_RectEmpty(&down))
@@ -79,7 +72,7 @@ void Button::ManageSection()
 
 void Button::ManageState()
 {
-	switch (button_event)
+	switch (element_event)
 	{
 	case MOUSE_ENTER:
 		state = ELEMENT_HOVER;
@@ -95,39 +88,6 @@ void Button::ManageState()
 		break;
 	}
 }
-
-void Button::saveMousePos(iPoint& mousePos)
-{
-	App->input->GetMousePosition(mousePos.x, mousePos.y);
-}
-
-bool Button::ManageDrag()
-{
-	if (!draggabel)
-		return false;
-
-	if (button_event != button_last_event) {
-		if (button_event == CLICK_DOWN)
-			saveMousePos(begin_drag_point);
-	}
-
-	if (state == ELEMENT_DOWN) {
-		iPoint curr_mouse_pos;
-		App->input->GetMousePosition(curr_mouse_pos.x, curr_mouse_pos.y);
-
-		iPoint differential = curr_mouse_pos - begin_drag_point;
-
-		position += differential;
-		
-		SetPositionRect();
-		saveMousePos(begin_drag_point);
-	}
-	
-
-	return true;
-}
-
-
 
 Button::~Button()
 {

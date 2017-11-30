@@ -215,6 +215,25 @@ Button * j1Gui::AddUIButton(iPoint position, p2SString label_text, p2SString tex
 	return new_Button;
 }
 
+Window * j1Gui::AddUIWindow(iPoint position, SDL_Rect section)
+{
+	UIElement* elem;
+
+	elem = new Picture(position);
+	Window* new_window = (Window*)elem;
+
+	elem->id = elements.count();
+
+	elem->texture = atlas;
+
+	if (!SDL_RectEmpty(&section))
+		elem->section = section;
+
+	elements.add(elem);
+
+	return new_window;
+}
+
 // const getter for atlas
 SDL_Texture* j1Gui::GetAtlas() const
 {

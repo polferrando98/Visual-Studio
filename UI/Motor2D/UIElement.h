@@ -6,7 +6,7 @@
 #include "SDL\include\SDL_rect.h"
 
 struct SDL_Texture;
-enum UIType { LABEL, PICTURE, BUTTON };
+enum UIType { LABEL, PICTURE, BUTTON, WINDOW };
 
 class j1Module;
 
@@ -64,7 +64,9 @@ public:
 
 	void Focus();
 
-public:
+	bool PositionChanged();
+
+	public:
 	iPoint			position = { 0, 0 };
 	iPoint			old_position = position;
 
@@ -74,9 +76,9 @@ public:
 	bool			move_with_camera = true;
 	fPoint			pivot = { 0.5,0.5 };
 	uint			id =0;
-	j1Module* listener = nullptr;
+	j1Module*		listener = nullptr;
 
-	bool focus = true;
+	bool			focus = true;
 
 };
 

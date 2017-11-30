@@ -19,16 +19,21 @@ public:
 	};
 	~InteractiveUIElement();
 	bool SetPositionRect();
-	void DragElement();
 	void ManageEvents();
+	void ManagePositionChanges();
+	bool CheckPositionRect();
+	void saveMousePos(iPoint& mousePos);
+	bool ManageDrag();
 	
 
 protected:
-	Mouse_UI_Event button_event = MOUSE_LEAVE;
-	Mouse_UI_Event button_last_event = MOUSE_LEAVE;
+	Mouse_UI_Event element_event = MOUSE_LEAVE;
+	Mouse_UI_Event element_last_event = MOUSE_LEAVE;
 	j1KeyState button_click_type;
 	SDL_Rect position_rect = { 0,0,0,0 };
-	bool draggable;
+	bool draggabel = true;
+
+	iPoint begin_drag_point;
 
 	ElementState	state = ELEMENT_UP;
 };
