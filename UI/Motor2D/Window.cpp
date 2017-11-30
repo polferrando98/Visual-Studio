@@ -8,11 +8,12 @@ Window::Window(iPoint position) :InteractiveUIElement(position, WINDOW)
 
 bool Window::Update(float dt)
 {
+	SetPositionRect();
 	bool ret;
 
 	ManagePositionChanges();
 
-	ret = CheckPositionRect();
+	ret = CheckPositionRect(type);
 
 	ManageEvents();
 

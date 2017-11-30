@@ -126,6 +126,13 @@ public:
 	{
 		return abs(v.x - x) + abs(v.y - y);
 	}
+
+	void SetTo(const p2Point& v) const
+	{
+		x = v.x;
+		y = v.y;
+	}
+
 };
 
 typedef p2Point<int> iPoint;

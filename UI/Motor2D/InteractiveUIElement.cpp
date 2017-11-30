@@ -7,28 +7,28 @@
 #include "j1Window.h"
 #include "j1Module.h"
 
+InteractiveUIElement::InteractiveUIElement(iPoint position, UIType type) : UIElement(position, type)
+{
+	this->position = position;
+	this->type = type;
+
+	SetDrawPosition();
+	SetPositionRect();
+}
+
 InteractiveUIElement::~InteractiveUIElement()
 {
 }
 
-bool InteractiveUIElement::SetPositionRect()
+void InteractiveUIElement::SetPositionRect()
 {
-
-	if (!SDL_RectEmpty(&section)) {
-
-
-		position_rect = {
-				position.x,
-				position.y,
-				section.w,
-				section.h
-		};
-
-		return true;
-	}
-	else
-		return false;
-
+	position_rect =
+	{
+		draw_positon.x,
+		draw_positon.y,
+		section.w,
+		section.h
+	};
 }
 
 void InteractiveUIElement::ManageEvents()
@@ -75,11 +75,11 @@ void InteractiveUIElement::ManagePositionChanges()
 	}
 }
 
-bool InteractiveUIElement::CheckPositionRect()
+bool InteractiveUIElement::CheckPositionRect(UIType type)
 {
 	if (SDL_RectEmpty(&position_rect))
 	{
-		LOG("Error, button without position rect");
+		LOG("Error, button without position rect, type = %d", type);
 		return false;
 	}
 	return true;
@@ -111,14 +111,11 @@ bool InteractiveUIElement::ManageDrag()
 		SetPositionRect();
 		saveMousePos(begin_drag_point);
 	}
-
-
 	return true;
 }
 
 void InteractiveUIElement::ManageState()
 {
-
 	switch (element_event)
 	{
 	case MOUSE_ENTER:
@@ -134,5 +131,4 @@ void InteractiveUIElement::ManageState()
 		state = ELEMENT_HOVER;
 		break;
 	}
-
 }

@@ -9,8 +9,6 @@
 #include "j1Module.h"
 #include "InteractiveUIElement.h"
 
-
-
 Button::Button(iPoint position) : InteractiveUIElement(position, BUTTON)
 {
 	label = new Label(position);
@@ -20,9 +18,15 @@ Button::Button(iPoint position) : InteractiveUIElement(position, BUTTON)
 bool Button::Update(float dt)
 {
 	bool ret;
-	ManagePositionChanges();
+	ret = CheckPositionRect(type);
 
-	ret = CheckPositionRect();
+	SetPositionRect();
+
+
+	if (PositionChanged()) {
+		AdjustToPivot();
+		SetPositionRect();
+	}
 
 	CenterLabel();
 

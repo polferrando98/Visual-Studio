@@ -3,45 +3,55 @@
 #include "j1Render.h"
 #include "j1Window.h"
 
-void UIElement::Draw() const 
+void UIElement::Draw()  
 {
-	if (move_with_camera) {
-		if (SDL_RectEmpty(&section)) 
-			App->render->Blit(texture, position.x - App->render->camera.x, position.y - App->render->camera.y);
-		else
-			App->render->Blit(texture, position.x - App->render->camera.x, position.y - App->render->camera.y, &section);
+	SetDrawPosition();
+	if (SDL_RectEmpty(&section)) {
+		App->render->Blit(texture, draw_positon.x, draw_positon.y);
 	}
-
-	else
-		if (SDL_RectEmpty(&section))
-			App->render->Blit(texture, position.x, position.y);
-		else
-			App->render->Blit(texture, position.x, position.y, &section);
+	else {
+		App->render->Blit(texture, draw_positon.x, draw_positon.y, &section);
+	}
 }
 
-void UIElement::DebugDraw() const
-{	
-	if (move_with_camera) {
-		if (!SDL_RectEmpty(&section)) 
-		//if(focus == false)
-				App->render->DrawQuad({ position.x - App->render->camera.x,position.y - App->render->camera.y, section.w, section.h }, 255, 0, 0, 255, false);
-			//else
-				//App->render->DrawQuad({ position.x - App->render->camera.x,position.y - App->render->camera.y, section.w, section.h }, 0, 0, 255, 255, false);
+void UIElement::SetDrawPosition()
+{
+	if (!parent)
+	{
+		if (move_with_camera)
+		{
+			draw_positon.x = position.x - App->render->camera.x;
+			draw_positon.y = position.y - App->render->camera.y;
+		}
 
-		else { //if section is empty we will draw the full texture
-			iPoint size;
-			SDL_QueryTexture(texture, 0, 0, &size.x, &size.y);
-			App->render->DrawQuad({ position.x - App->render->camera.x,position.y - App->render->camera.y, size.x, size.y }, 255, 0, 0, 255, false);
-		}
+		else
+			draw_positon = position;
 	}
+
 	else
-		if (!SDL_RectEmpty(&section))
-			App->render->DrawQuad({ position.x,position.y,section.w,section.h }, 255, 0, 0, 255, false);
-		else {
-			iPoint size;
-			SDL_QueryTexture(texture, 0, 0, &size.x, &size.y);
-			App->render->DrawQuad({ position.x - App->render->camera.x,position.y - App->render->camera.y, size.x, size.y }, 255, 0, 0, 255, false);
+	{
+		if (move_with_camera)
+		{
+			draw_positon.x = position.x - App->render->camera.x + parent->position.x;
+			draw_positon.y = position.y - App->render->camera.y + parent->position.y;
 		}
+
+		else
+			draw_positon = position + parent->position;
+	}
+}
+
+
+void UIElement::DebugDraw()
+{
+	if (!SDL_RectEmpty(&section))
+		App->render->DrawQuad({ draw_positon.x, draw_positon.y, section.w, section.h }, 255, 0, 0, 255, false);
+
+	else { //if section is empty we will draw the full texture
+		iPoint size;
+		SDL_QueryTexture(texture, 0, 0, &size.x, &size.y);
+		App->render->DrawQuad({ draw_positon.x, draw_positon.y, size.x, size.y }, 255, 0, 0, 255, false);
+	}
 }
 
 void UIElement::MoveInPercentage(fPoint position_in_percentage)
@@ -72,11 +82,12 @@ void UIElement::AdjustToPivot()
 
 void UIElement::UpdateOldPos()
 {
-	old_position = position;
+	old_position = draw_positon;
 }
 
 bool UIElement::PositionChanged()
 {
-	return (old_position != position) ? true : false;
+	return (old_position != draw_positon) ? true : false;
 }
+
 

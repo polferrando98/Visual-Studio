@@ -71,10 +71,12 @@ bool j1Scene::Start()
 
 	Button* terms_of_use_but = App->gui->AddUIButton({ 1500,900 }, "Terms of use", "gui/button-atlas.png", { 0,0,127,23 }, { 0,50,127,23 }, { 169,0,127,23 }); //LoginButton
 
-	App->gui->AddUIWindow({ 300,300 }, {30,538,420,477});
+
 
 	terms_of_use_but->listener = App->scene;
-	terms_of_use_but->MoveInPercentage({ 10,50 });
+	terms_of_use_but->MoveInPercentage({ 60,50 });
+
+	terms_of_use_but->parent = (UIElement*)App->gui->AddUIWindow({ 700,300 }, { 30,538,420,477 });
 
 	
 

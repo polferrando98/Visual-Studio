@@ -11,30 +11,25 @@ class InteractiveUIElement :
 	public UIElement
 {
 public:
-	InteractiveUIElement(iPoint position, UIType type) : UIElement(position, type)
-	{
-		this->position = position;
-		this->texture = texture;
-		this->type = type;
-	};
+	InteractiveUIElement(iPoint position, UIType type);
 	~InteractiveUIElement();
-	bool SetPositionRect();
+	void SetPositionRect();
 	void ManageEvents();
 	void ManagePositionChanges();
-	bool CheckPositionRect();
+	bool CheckPositionRect(UIType type);
 	void saveMousePos(iPoint& mousePos);
 	bool ManageDrag();
 	void ManageState();
 	
 
 protected:
-	Mouse_UI_Event element_event = MOUSE_LEAVE;
-	Mouse_UI_Event element_last_event = MOUSE_LEAVE;
-	j1KeyState button_click_type;
-	SDL_Rect position_rect = { 0,0,0,0 };
-	bool draggabel = true;
+	Mouse_UI_Event	element_event = MOUSE_LEAVE;
+	Mouse_UI_Event	element_last_event = MOUSE_LEAVE;
+	j1KeyState		button_click_type;
+	SDL_Rect		position_rect = { 0,0,0,0 };
+	bool			draggabel = true;
 
-	iPoint begin_drag_point;
+	iPoint			begin_drag_point;
 
 	ElementState	state = ELEMENT_UP;
 };
